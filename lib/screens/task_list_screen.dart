@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/task_tile.dart';
 import '../models/task.dart';
+import '../widgets/task_tile.dart';
 
 class TaskListScreen extends StatefulWidget {
   final List<Task> tasks;
@@ -12,6 +12,12 @@ class TaskListScreen extends StatefulWidget {
 }
 
 class _TaskListScreenState extends State<TaskListScreen> {
+  void _deleteTask(Task task) {
+    setState(() {
+      widget.tasks.remove(task);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,10 +32,12 @@ class _TaskListScreenState extends State<TaskListScreen> {
             task: task,
             onCheckboxChanged: (value) {
               setState(() {
-                // Toggle the isCompleted status of the task
-                final updatedTask = task.copyWith(isCompleted: value ?? false);
-                widget.tasks[index] = updatedTask;
+                // Toggle the task's completion status
+                widget.tasks[index] = task.toggleCompletion();
               });
+            },
+            onDelete: () {
+              _deleteTask(task); // Pass task to delete
             },
           );
         },

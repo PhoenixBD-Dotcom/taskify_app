@@ -3,11 +3,13 @@ import '../models/task.dart';
 
 class TaskTile extends StatelessWidget {
   final Task task;
-  final Function(bool?)? onCheckboxChanged; // Callback function for checkbox change
+  final ValueChanged<bool?> onCheckboxChanged;
+  final VoidCallback onDelete;
 
   TaskTile({
     required this.task,
-    this.onCheckboxChanged,
+    required this.onCheckboxChanged,
+    required this.onDelete,
   });
 
   @override
@@ -15,16 +17,14 @@ class TaskTile extends StatelessWidget {
     return ListTile(
       title: Text(task.title),
       subtitle: Text(task.description),
-      trailing: Checkbox(
+      leading: Checkbox(
         value: task.isCompleted,
-        onChanged: onCheckboxChanged, // Pass the callback function
+        onChanged: onCheckboxChanged,
       ),
-      onTap: () {
-        Navigator.of(context).pushNamed(
-          '/task-detail',
-          arguments: task.id,
-        );
-      },
+      trailing: IconButton(
+        icon: Icon(Icons.delete),
+        onPressed: onDelete,
+      ),
     );
   }
 }

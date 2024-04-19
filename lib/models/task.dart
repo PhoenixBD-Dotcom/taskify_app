@@ -29,9 +29,8 @@ class Task {
     this.recurringFrequency,
   });
 
-  Task copyWith({
-    bool? isCompleted,
-  }) {
+  // Method to toggle task completion status
+  Task toggleCompletion() {
     return Task(
       id: this.id,
       title: this.title,
@@ -40,7 +39,7 @@ class Task {
       priority: this.priority,
       notes: this.notes,
       isRecurring: this.isRecurring,
-      isCompleted: isCompleted ?? this.isCompleted,
+      isCompleted: !this.isCompleted, // Toggle isCompleted status
       recurringFrequency: this.recurringFrequency,
     );
   }
