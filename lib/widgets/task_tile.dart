@@ -3,28 +3,27 @@ import '../models/task.dart';
 
 class TaskTile extends StatelessWidget {
   final Task task;
-  final ValueChanged<bool?> onCheckboxChanged;
-  final VoidCallback onDelete;
+  final VoidCallback onToggleDone;
 
-  TaskTile({
-    required this.task,
-    required this.onCheckboxChanged,
-    required this.onDelete,
-  });
+  TaskTile({required this.task, required this.onToggleDone});
 
   @override
   Widget build(BuildContext context) {
+    bool isDone = task.isCompleted;
+
     return ListTile(
-      title: Text(task.title),
+      title: Text(
+        task.title,
+        style: isDone ? TextStyle(decoration: TextDecoration.lineThrough) : null,
+      ),
       subtitle: Text(task.description),
-      leading: Checkbox(
-        value: task.isCompleted,
-        onChanged: onCheckboxChanged,
+      trailing: GestureDetector(
+        onTap: onToggleDone,
+        child: isDone ? Icon(Icons.check_box) : Icon(Icons.check_box_outline_blank),
       ),
-      trailing: IconButton(
-        icon: Icon(Icons.delete),
-        onPressed: onDelete,
-      ),
+      onLongPress: () {
+        // Optional: Implement additional actions for long-press if needed
+      },
     );
   }
 }

@@ -29,7 +29,7 @@ List<Task> dummyTasks = [
     priority: TaskPriority.low,
     notes: ['Update team on progress', 'Highlight any blockers'],
     isRecurring: true,
-    recurringFrequency: 'daily',
+    recurringFrequency: 'daily', // Include recurringFrequency for recurring task
     isCompleted: false,
   ),
 ];

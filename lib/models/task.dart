@@ -14,8 +14,8 @@ class Task {
   final TaskPriority priority;
   final List<String> notes;
   final bool isRecurring;
-  final String? recurringFrequency;
   final bool isCompleted;
+  final String? recurringFrequency; // Add recurringFrequency property
 
   Task({
     required this.id,
@@ -26,21 +26,31 @@ class Task {
     required this.notes,
     required this.isRecurring,
     required this.isCompleted,
-    this.recurringFrequency,
+    this.recurringFrequency, // Initialize recurringFrequency property
   });
 
-  // Method to toggle task completion status
-  Task toggleCompletion() {
+  // Method to create a new Task instance with updated properties
+  Task copyWith({
+    String? id,
+    String? title,
+    String? description,
+    DateTime? dueDate,
+    TaskPriority? priority,
+    List<String>? notes,
+    bool? isRecurring,
+    bool? isCompleted,
+    String? recurringFrequency, // Include recurringFrequency in copyWith method
+  }) {
     return Task(
-      id: this.id,
-      title: this.title,
-      description: this.description,
-      dueDate: this.dueDate,
-      priority: this.priority,
-      notes: this.notes,
-      isRecurring: this.isRecurring,
-      isCompleted: !this.isCompleted, // Toggle isCompleted status
-      recurringFrequency: this.recurringFrequency,
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      dueDate: dueDate ?? this.dueDate,
+      priority: priority ?? this.priority,
+      notes: notes ?? this.notes,
+      isRecurring: isRecurring ?? this.isRecurring,
+      isCompleted: isCompleted ?? this.isCompleted,
+      recurringFrequency: recurringFrequency ?? this.recurringFrequency,
     );
   }
 }
