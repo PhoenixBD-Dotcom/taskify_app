@@ -16,33 +16,40 @@ class _TaskListScreenState extends State<TaskListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Taskify'),
+        title: Text('Task list'),
       ),
       body: ListView.builder(
         itemCount: widget.tasks.length,
         itemBuilder: (ctx, index) {
           final task = widget.tasks[index];
 
-          return Dismissible(
-            key: Key(task.id),
-            direction: DismissDirection.startToEnd, // Allow swipe from left to right
-            background: Container(
-              color: Colors.red, // Background color when swiping
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Icon(Icons.delete, color: Colors.white),
-            ),
-            onDismissed: (direction) {
-              // Check direction to ensure deletion only on startToEnd swipe
-              if (direction == DismissDirection.startToEnd) {
-                _deleteTask(index);
-              }
+          return GestureDetector(
+            onTap: () {
+              _toggleTaskCompletion(index);
             },
-            child: TaskTile(
-              task: task,
-              onToggleDone: () {
-                _toggleTaskCompletion(index);
+            child: Dismissible(
+              key: Key(task.id),
+              direction: DismissDirection.startToEnd,
+              background: Container(
+                color: Colors.red,
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: Icon(Icons.delete, color: Colors.white),
+              ),
+              onDismissed: (direction) {
+                if (direction == DismissDirection.startToEnd) {
+                  _deleteTask(index);
+                }
               },
+              child: TaskTile(
+                task: task,
+                onDelete: () {
+                  _deleteTask(index);
+                },
+                onTap: () {
+                  _toggleTaskCompletion(index);
+                },
+              ),
             ),
           );
         },
@@ -78,7 +85,6 @@ class _TaskListScreenState extends State<TaskListScreen> {
       ),
     );
   }
-
 
   void _toggleTaskCompletion(int index) {
     setState(() {

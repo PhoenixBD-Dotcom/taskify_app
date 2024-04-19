@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import '../models/task.dart';
 
 class TaskFormScreen extends StatefulWidget {
@@ -9,8 +11,8 @@ class TaskFormScreen extends StatefulWidget {
 class _TaskFormScreenState extends State<TaskFormScreen> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
-  late DateTime _dueDate;
-  TaskPriority _priority = TaskPriority.low; // Default priority
+  late DateTime _dueDateTime; // Updated to store both date and time
+  TaskPriority _priority = TaskPriority.low;
   List<String> _notes = [];
 
   @override
@@ -18,7 +20,7 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
     super.initState();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
-    _dueDate = DateTime.now();
+    _dueDateTime = DateTime.now();
   }
 
   @override
@@ -49,12 +51,19 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
               maxLines: 3,
             ),
             SizedBox(height: 16.0),
-            Text('Due Date: $_dueDate'),
-            ElevatedButton(
-              onPressed: () {
-                _selectDueDate(context);
-              },
-              child: Text('Select Due Date'),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _selectDueDateTime(context);
+                    },
+                    child: Text('Date & Time'),
+                  ),
+                ),
+                SizedBox(width: 16.0),
+                Text('$_dueDateTime'),
+              ],
             ),
             SizedBox(height: 16.0),
             DropdownButtonFormField<TaskPriority>(
@@ -85,17 +94,29 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
     );
   }
 
-  Future<void> _selectDueDate(BuildContext context) async {
+  Future<void> _selectDueDateTime(BuildContext context) async {
     final pickedDate = await showDatePicker(
       context: context,
-      initialDate: _dueDate,
+      initialDate: _dueDateTime,
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
     );
-    if (pickedDate != null && pickedDate != _dueDate) {
-      setState(() {
-        _dueDate = pickedDate;
-      });
+    if (pickedDate != null) {
+      final pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(_dueDateTime),
+      );
+      if (pickedTime != null) {
+        setState(() {
+          _dueDateTime = DateTime(
+            pickedDate.year,
+            pickedDate.month,
+            pickedDate.day,
+            pickedTime.hour,
+            pickedTime.minute,
+          );
+        });
+      }
     }
   }
 
@@ -114,11 +135,11 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
       id: DateTime.now().toString(),
       title: title,
       description: description,
-      dueDate: _dueDate,
+      dueDate: _dueDateTime,
       priority: _priority,
       notes: _notes,
-      isRecurring: false, // Assuming task is not recurring initially
-      isCompleted: false, // Default isCompleted status
+      isRecurring: false,
+      isCompleted: false,
     );
 
     Navigator.of(context).pop(newTask);

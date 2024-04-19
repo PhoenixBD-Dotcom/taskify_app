@@ -3,27 +3,46 @@ import '../models/task.dart';
 
 class TaskTile extends StatelessWidget {
   final Task task;
-  final VoidCallback onToggleDone;
+  final VoidCallback onDelete;
+  final VoidCallback onTap; // Callback to handle tapping the task tile
 
-  TaskTile({required this.task, required this.onToggleDone});
+  TaskTile({
+    required this.task,
+    required this.onDelete,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    bool isDone = task.isCompleted;
-
     return ListTile(
       title: Text(
         task.title,
-        style: isDone ? TextStyle(decoration: TextDecoration.lineThrough) : null,
+        style: TextStyle(
+          decoration: task.isCompleted ? TextDecoration.lineThrough : null,
+          color: task.isCompleted ? Colors.grey : Colors.black,
+        ),
       ),
-      subtitle: Text(task.description),
-      trailing: GestureDetector(
-        onTap: onToggleDone,
-        child: isDone ? Icon(Icons.check_box) : Icon(Icons.check_box_outline_blank),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(task.description),
+          SizedBox(height: 8.0),
+          Text(
+            'Due: ${_formatDateTime(task.dueDate)}',
+            style: TextStyle(color: Colors.grey),
+          ),
+        ],
       ),
-      onLongPress: () {
-        // Optional: Implement additional actions for long-press if needed
-      },
+      trailing: IconButton(
+        icon: Icon(Icons.delete),
+        onPressed: onDelete,
+      ),
+      onTap: onTap, // Handle tap on the task tile
     );
+  }
+
+  String _formatDateTime(DateTime dateTime) {
+    // Format date and time as a string
+    return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${dateTime.hour}:${dateTime.minute}';
   }
 }
