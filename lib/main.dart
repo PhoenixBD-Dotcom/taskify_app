@@ -1,37 +1,26 @@
 import 'package:flutter/material.dart';
 import 'screens/task_list_screen.dart';
 import 'screens/task_form_screen.dart';
-import 'screens/task_detail_screen.dart';
+import 'models/task.dart';
 import 'data/dummy_data.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(TaskifyApp());
 }
 
-class MyApp extends StatelessWidget {
+class TaskifyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Taskify App',
+      title: 'Taskify',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: '/',
       routes: {
-        '/': (ctx) => TaskListScreen(),
-        '/task-form': (ctx) => TaskFormScreen(),
-      },
-      onGenerateRoute: (settings) {
-        if (settings.name == '/task-detail') {
-          final taskId = settings.arguments as String;
-          // Retrieve selected task based on taskId (e.g., from database)
-          // For now, use dummyTasks from dummy_data.dart
-          final selectedTask = dummyTasks.firstWhere((task) => task.id == taskId);
-          return MaterialPageRoute(
-            builder: (ctx) => TaskDetailScreen(selectedTask),
-          );
-        }
-        return MaterialPageRoute(builder: (ctx) => TaskListScreen());
+        '/': (context) => TaskListScreen(tasks: dummyTasks),
+        '/task-form': (context) => TaskFormScreen(),
       },
     );
   }

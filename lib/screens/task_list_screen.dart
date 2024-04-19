@@ -21,11 +21,14 @@ class _TaskListScreenState extends State<TaskListScreen> {
       body: ListView.builder(
         itemCount: widget.tasks.length,
         itemBuilder: (ctx, index) {
+          final task = widget.tasks[index];
           return TaskTile(
-            task: widget.tasks[index],
+            task: task,
             onCheckboxChanged: (value) {
               setState(() {
-                widget.tasks[index].isCompleted = value ?? false;
+                // Toggle the isCompleted status of the task
+                final updatedTask = task.copyWith(isCompleted: value ?? false);
+                widget.tasks[index] = updatedTask;
               });
             },
           );

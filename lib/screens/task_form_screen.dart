@@ -118,6 +118,7 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
       priority: _priority,
       notes: _notes,
       isRecurring: false, // Assuming task is not recurring initially
+      isCompleted: false, // Default isCompleted status
     );
 
     Navigator.of(context).pop(newTask);

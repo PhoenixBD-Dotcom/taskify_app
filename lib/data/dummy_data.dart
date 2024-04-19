@@ -9,6 +9,7 @@ List<Task> dummyTasks = [
     priority: TaskPriority.high,
     notes: ['Prepare presentation slides', 'Gather project requirements'],
     isRecurring: false,
+    isCompleted: false,
   ),
   Task(
     id: '2',
@@ -18,6 +19,7 @@ List<Task> dummyTasks = [
     priority: TaskPriority.medium,
     notes: ['Prepare meeting agenda', 'Review project milestones'],
     isRecurring: false,
+    isCompleted: false,
   ),
   Task(
     id: '3',
@@ -28,6 +30,6 @@ List<Task> dummyTasks = [
     notes: ['Update team on progress', 'Highlight any blockers'],
     isRecurring: true,
     recurringFrequency: 'daily',
+    isCompleted: false,
   ),
-  // Add more dummy tasks as needed
 ];
