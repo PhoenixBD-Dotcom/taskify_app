@@ -3,12 +3,14 @@ import 'dart:async'; // Import dart:async for Timer
 import 'package:flutter/material.dart';
 
 class StopwatchScreen extends StatefulWidget {
+  const StopwatchScreen({super.key});
+
   @override
   _StopwatchScreenState createState() => _StopwatchScreenState();
 }
 
 class _StopwatchScreenState extends State<StopwatchScreen> {
-  Stopwatch _stopwatch = Stopwatch();
+  final Stopwatch _stopwatch = Stopwatch();
   late Timer _timer;
   bool _isRunning = false;
 
@@ -24,7 +26,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
       _timer.cancel(); // Cancel timer when stopwatch stops
     } else {
       _stopwatch.start();
-      _timer = Timer.periodic(Duration(milliseconds: 100), _updateTimer);
+      _timer = Timer.periodic(const Duration(milliseconds: 100), _updateTimer);
     }
     setState(() {
       _isRunning = !_isRunning;
@@ -67,7 +69,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Stopwatch'),
+        title: const Text('Stopwatch'),
       ),
       body: Center(
         child: Column(
@@ -76,9 +78,9 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
           children: [
             Text(
               formattedTime,
-              style: TextStyle(fontSize: 48.0),
+              style: const TextStyle(fontSize: 48.0),
             ),
-            SizedBox(height: 24.0),
+            const SizedBox(height: 24.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -86,10 +88,10 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                   onPressed: _startStopwatch,
                   child: Text(_isRunning ? 'Stop' : 'Start'),
                 ),
-                SizedBox(width: 16.0),
+                const SizedBox(width: 16.0),
                 ElevatedButton(
                   onPressed: _resetStopwatch,
-                  child: Text('Reset'),
+                  child: const Text('Reset'),
                 ),
               ],
             ),

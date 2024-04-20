@@ -5,7 +5,7 @@ import '../widgets/task_tile.dart';
 class TaskListScreen extends StatefulWidget {
   final List<Task> tasks;
 
-  TaskListScreen({required this.tasks});
+  const TaskListScreen({super.key, required this.tasks});
 
   @override
   _TaskListScreenState createState() => _TaskListScreenState();
@@ -16,7 +16,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Task list'),
+        title: const Text('Task list'),
       ),
       body: ListView.builder(
         itemCount: widget.tasks.length,
@@ -33,8 +33,8 @@ class _TaskListScreenState extends State<TaskListScreen> {
               background: Container(
                 color: Colors.red,
                 alignment: Alignment.centerLeft,
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Icon(Icons.delete, color: Colors.white),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: const Icon(Icons.delete, color: Colors.white),
               ),
               onDismissed: (direction) {
                 if (direction == DismissDirection.startToEnd) {
@@ -58,7 +58,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
         onPressed: () {
           _navigateToTaskFormScreen(context);
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -72,7 +72,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Task deleted'),
+        content: const Text('Task deleted'),
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {

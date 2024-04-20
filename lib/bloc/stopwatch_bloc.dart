@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 
 // Events
 enum StopwatchEvent {
@@ -42,7 +41,7 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
 
   Stream<StopwatchState> _startStopwatch() async* {
     _duration = state.duration;
-    _timer = Timer.periodic(Duration(milliseconds: 10), (_) {
+    _timer = Timer.periodic(const Duration(milliseconds: 10), (_) {
       add(StopwatchEvent.tick);
     });
     yield StopwatchState(duration: _duration, isRunning: true);
@@ -60,7 +59,7 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
   }
 
   Stream<StopwatchState> _tickStopwatch() async* {
-    _duration += Duration(milliseconds: 10);
+    _duration += const Duration(milliseconds: 10);
     yield StopwatchState(duration: _duration, isRunning: true);
   }
 

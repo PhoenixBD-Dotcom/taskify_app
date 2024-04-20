@@ -31,12 +31,16 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.0
+  numberpicker: ^2.0.1
+  flutter_ringtone_player: ^4.0.0+2
+  audioplayers: ^6.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
 
+  bloc: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

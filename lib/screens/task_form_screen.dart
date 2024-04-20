@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../models/task.dart';
 
 class TaskFormScreen extends StatefulWidget {
+  const TaskFormScreen({super.key});
+
   @override
   _TaskFormScreenState createState() => _TaskFormScreenState();
 }
@@ -13,7 +13,7 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
   late TextEditingController _descriptionController;
   late DateTime _dueDateTime; // Updated to store both date and time
   TaskPriority _priority = TaskPriority.low;
-  List<String> _notes = [];
+  final List<String> _notes = [];
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Task'),
+        title: const Text('Add Task'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -43,14 +43,14 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
           children: [
             TextField(
               controller: _titleController,
-              decoration: InputDecoration(labelText: 'Title'),
+              decoration: const InputDecoration(labelText: 'Title'),
             ),
             TextField(
               controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Description'),
+              decoration: const InputDecoration(labelText: 'Description'),
               maxLines: 3,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Row(
               children: [
                 Expanded(
@@ -58,14 +58,14 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                     onPressed: () {
                       _selectDueDateTime(context);
                     },
-                    child: Text('Date & Time'),
+                    child: const Text('Date & Time'),
                   ),
                 ),
-                SizedBox(width: 16.0),
+                const SizedBox(width: 16.0),
                 Text('$_dueDateTime'),
               ],
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             DropdownButtonFormField<TaskPriority>(
               value: _priority,
               items: TaskPriority.values.map((priority) {
@@ -79,14 +79,14 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                   _priority = value!;
                 });
               },
-              decoration: InputDecoration(labelText: 'Priority'),
+              decoration: const InputDecoration(labelText: 'Priority'),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 _saveTask(context);
               },
-              child: Text('Save Task'),
+              child: const Text('Save Task'),
             ),
           ],
         ),
@@ -126,7 +126,7 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
 
     if (title.isEmpty || description.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please enter title and description')),
+        const SnackBar(content: Text('Please enter title and description')),
       );
       return;
     }

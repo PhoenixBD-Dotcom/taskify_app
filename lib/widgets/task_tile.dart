@@ -6,7 +6,7 @@ class TaskTile extends StatelessWidget {
   final VoidCallback onDelete;
   final VoidCallback onTap; // Callback to handle tapping the task tile
 
-  TaskTile({
+  const TaskTile({super.key, 
     required this.task,
     required this.onDelete,
     required this.onTap,
@@ -26,15 +26,15 @@ class TaskTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(task.description),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           Text(
             'Due: ${_formatDateTime(task.dueDate)}',
-            style: TextStyle(color: Colors.grey),
+            style: const TextStyle(color: Colors.grey),
           ),
         ],
       ),
       trailing: IconButton(
-        icon: Icon(Icons.delete),
+        icon: const Icon(Icons.delete),
         onPressed: onDelete,
       ),
       onTap: onTap, // Handle tap on the task tile
