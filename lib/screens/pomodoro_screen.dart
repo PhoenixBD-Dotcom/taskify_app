@@ -150,15 +150,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pomodoro Timer'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              _showSettingsDialog(context); // Show settings dialog
-            },
-          ),
-        ],
+        title: Center(child: const Text('Pomodoro Timer')),
       ),
       body: Center(
         child: Column(

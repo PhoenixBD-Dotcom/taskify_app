@@ -38,6 +38,7 @@ class _TaskifyAppState extends State<TaskifyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Taskify',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -45,14 +46,17 @@ class _TaskifyAppState extends State<TaskifyApp> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Taskify', style: TextStyle(fontWeight: FontWeight.bold)),
+          title: Center(
+              child: const Text('Taskify',
+                  style: TextStyle(fontWeight: FontWeight.bold))),
         ),
         body: _screens[_selectedIndex], // Display the selected screen
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           selectedItemColor: Colors.blue, // Set selected icon color to blue
-          unselectedItemColor: Colors.blueGrey[600], // Set unselected icon color to blueGrey[600]
+          unselectedItemColor: Colors
+              .blueGrey[600], // Set unselected icon color to blueGrey[600]
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.list),
@@ -74,7 +78,8 @@ class _TaskifyAppState extends State<TaskifyApp> {
         ),
       ),
       routes: {
-        '/task-form': (context) => TaskFormScreen(), // Define route for task form screen
+        '/task-form': (context) =>
+            TaskFormScreen(), // Define route for task form screen
       },
     );
   }
